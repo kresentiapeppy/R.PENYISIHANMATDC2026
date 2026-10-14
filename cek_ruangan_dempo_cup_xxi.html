@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Ruangan & Nomor Meja - Dempo Cup XXI 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        dempo: {
+                            blue: '#0F2C59',
+                            darkBlue: '#071939',
+                            gold: '#D4AF37',
+                            goldLight: '#F3E5AB',
+                            accent: '#3B82F6',
+                            bg: '#F8FAFC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .bg-dempo-gradient {
+            background: linear-gradient(135deg, #071939 0%, #0F2C59 60%, #1E3A8A 100%);
+        }
+        .gold-badge {
+            background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #B8860B 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px -5px rgba(15, 44, 89, 0.1);
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="bg-dempo-gradient text-white relative overflow-hidden shadow-lg no-print">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="absolute -left-10 -top-10 w-64 h-64 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-mx-auto px-4 py-8 sm:py-10 relative z-10 mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-white/10 backdrop-blur-md rounded-2xl p-2.5 flex items-center justify-center border border-white/20 shadow-inner shrink-0">
+                        <i class="fa-solid me-0 fa-calculator text-3xl sm:text-4xl text-amber-300"></i>
+                    </div>
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-semibold mb-1 border border-amber-400/30">
+                            <i class="fa-solid fa-trophy text-xs"></i> LOMBA MATEMATIKA
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">DEMPO CUP XXI TAHUN 2026</h1>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-0.5">SMA Katolik St. Albertus (SMA Dempo) Malang</p>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-xl p-3 sm:p-4 text-center min-w-[200px]">
+                    <span class="text-xs text-amber-200 font-medium block uppercase tracking-wider">Hitung Mundur Acara</span>
+                    <div id="countdown" class="text-lg sm:text-xl font-bold tracking-tight text-white mt-1">
+                        -- d -- h -- m -- s
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8 flex-grow w-full space-y-8">
+        
+        <!-- Official Schedule Notice Card -->
+        <div class="bg-gradient-to-r from-amber-500/10 via-amber-50 to-amber-500/10 border-2 border-amber-400/50 rounded-2xl p-5 sm:p-6 shadow-sm no-print relative overflow-hidden">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div class="w-12 h-12 bg-amber-500 text-white rounded-xl flex items-center justify-center text-xl shrink-0 shadow-md">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-base sm:text-lg font-bold text-amber-950 flex items-center gap-2">
+                        PEMBERITAHUAN PENTING BABAK PENYISIHAN
+                    </h3>
+                    <div class="text-xs sm:text-sm text-amber-900/90 mt-1 space-y-1">
+                        <p><i class="fa-solid fa-location-dot text-amber-600 w-5"></i> <strong>Lokasi:</strong> SMA Katolik St. Albertus (SMA Dempo) Malang</p>
+                        <p><i class="fa-solid fa-calendar-day text-amber-600 w-5"></i> <strong>Hari & Tanggal:</strong> Sabtu, 17 Oktober 2026</p>
+                        <p class="text-red-700 font-semibold"><i class="fa-solid fa-clock text-red-600 w-5"></i> <strong>Batas Waktu:</strong> Wajib berada di ruangan selambat-lambatnya <u>Pk 08.45 WIB</u></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEARCH FORM SECTION -->
+        <section class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-slate-100 no-print">
+            <div class="text-center max-w-xl mx-auto mb-6">
+                <h2 class="text-xl sm:text-2xl font-bold text-dempo-blue">Cek Ruangan & Nomor Meja</h2>
+                <p class="text-slate-500 text-xs sm:text-sm mt-1">Ketik nama lengkap peserta untuk mencari alokasi ruangan dan nomor meja Anda.</p>
+            </div>
+
+            <form id="searchForm" onsubmit="handleSearch(event)" class="max-w-xl mx-auto relative">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="nameInput" 
+                        placeholder="Ketikkan Nama Lengkap Peserta..." 
+                        autocomplete="off"
+                        class="w-full pl-11 pr-28 py-3.5 sm:py-4 bg-slate-50 border-2 border-slate-200 focus:border-dempo-blue focus:bg-white rounded-xl text-sm sm:text-base outline-none transition-all duration-200 font-medium"
+                    >
+                    <button 
+                        type="submit" 
+                        class="absolute right-2 top-2 bottom-2 px-5 bg-dempo-blue hover:bg-dempo-darkBlue text-white font-semibold rounded-lg text-sm transition-colors duration-200 flex items-center gap-2 shadow-md hover:shadow"
+                    >
+                        <span>Cari</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- RESULT CARD MODAL / PANEL -->
+        <section id="resultContainer" class="hidden">
+            <div id="resultCard" class="bg-white rounded-2xl card-shadow border border-slate-200 overflow-hidden max-w-2xl mx-auto transition-all duration-300 transform scale-100">
+                
+                <!-- Card Header -->
+                <div class="bg-dempo-gradient text-white p-6 sm:p-8 relative">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="px-3 py-1 rounded-full bg-amber-400 text-dempo-darkBlue font-bold text-xs uppercase tracking-wide">
+                                DETAIL PESERTA BABAK PENYISIHAN
+                            </span>
+                            <h3 id="resName" class="text-xl sm:text-2xl font-extrabold mt-3 leading-snug">--</h3>
+                            <p id="resSchool" class="text-slate-300 text-sm mt-1 flex items-center gap-1.5">
+                                <i class="fa-solid fa-school text-amber-300 text-xs"></i>
+                                <span>--</span>
+                            </p>
+                        </div>
+                        <div class="hidden sm:block">
+                            <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20 text-amber-300 text-2xl font-black">
+                                XXI
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Body (Room & Desk Info) -->
+                <div class="p-6 sm:p-8 bg-slate-50/50">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
+                        <!-- Ruangan -->
+                        <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-dempo-blue text-2xl font-bold">
+                                <i class="fa-solid fa-door-open"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Ruangan</span>
+                                <span id="resRoom" class="text-2xl font-extrabold text-dempo-blue">--</span>
+                            </div>
+                        </div>
+
+                        <!-- Nomor Meja -->
+                        <div class="bg-white p-5 rounded-xl border border-amber-200/80 shadow-sm flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 text-2xl font-bold">
+                                <i class="fa-solid fa-chair"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Nomor Meja</span>
+                                <span id="resDesk" class="text-3xl font-black text-amber-600">--</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Event Reminder Box inside Card -->
+                    <div class="mt-6 bg-blue-50/80 border border-blue-200 rounded-xl p-4 text-xs sm:text-sm text-slate-700 space-y-2">
+                        <div class="font-bold text-dempo-blue flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-info"></i> Pengingat Kehadiran:
+                        </div>
+                        <p class="leading-relaxed">
+                            Penyisihan dilaksanakan pada <strong>Sabtu, 17 Oktober 2026</strong> di <strong>SMA Katolik St. Albertus (SMA Dempo) Malang</strong>. Peserta wajib hadir di ruangan selambat-lambatnya <strong>Pk 08.45 WIB</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="mt-6 flex justify-center no-print">
+                        <button onclick="resetSearch()" class="w-full sm:w-auto py-3 px-8 bg-dempo-blue hover:bg-dempo-darkBlue text-white rounded-xl font-semibold text-sm transition text-center shadow">
+                            <i class="fa-solid fa-magnifying-glass mr-2"></i> Cari Peserta Lain
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ERROR MSG BOX -->
+        <div id="notFoundBox" class="hidden bg-red-50 border-2 border-red-200 rounded-2xl p-6 text-center max-w-xl mx-auto no-print">
+            <div class="w-12 h-12 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto text-xl mb-3">
+                <i class="fa-solid fa-user-xmark"></i>
+            </div>
+            <h4 class="text-base sm:text-lg font-bold text-red-800">Nama Tidak Ditemukan</h4>
+            <p class="text-xs sm:text-sm text-red-600 mt-1">Pastikan penulisan nama lengkap sudah benar sesuai pendaftaran.</p>
+        </div>
+
+        <!-- LOCATION & VENUE INFO -->
+        <section class="bg-white rounded-2xl p-6 card-shadow border border-slate-100 no-print">
+            <h3 class="text-base font-bold text-dempo-blue mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-map-location-dot text-amber-500"></i> Lokasi Pelaksanaan
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div class="space-y-2">
+                    <p class="font-semibold text-slate-800">SMA Katolik St. Albertus (SMA Dempo) Malang</p>
+                    <p class="text-slate-500">Jl. Talang No. 1, Oro-oro Dowo, Kec. Klojen, Kota Malang, Jawa Timur 65112</p>
+                    <div class="pt-2">
+                        <a href="https://maps.google.com/?q=SMA+Katolik+St.+Albertus+Malang" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 bg-blue-50 text-dempo-blue rounded-lg text-xs font-semibold hover:bg-blue-100 transition">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Google Maps
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-slate-600 space-y-1.5 text-xs">
+                    <p class="font-bold text-slate-800"><i class="fa-solid fa-circle-check text-green-600 mr-1"></i> Petunjuk Singkat Hari-H:</p>
+                    <p>1. Proses daftar ulang akan dibuka mulai Pk 08.00 - Pk 08.45 WIB di depan Relief</p>
+                    <p>2. Formulir pendaftaran dan kartu pelajar/surat keterangan peserta didik SMP dibawa pada hari H pelaksanaan.</p>
+                    <p>3. Peserta wajib menggunakan seragam dari SMP Asal</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dempo-darkBlue text-slate-400 py-6 text-center text-xs no-print mt-auto border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-4">
+            <p>&copy; 2026 Lomba Matematika - Dempo Cup XXI. SMA Katolik St. Albertus Malang.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const participantsData = [
+            { nama: "ABIN ARKANA ELFAYRUZ", sekolah: "SMP NEGERI 16 MALANG", ruangan: "R.203", meja: 1 },
+            { nama: "ABYAN XAVIER RAMADHAN", sekolah: "SMPS PJ GLOBAL SCHOOL MALANG", ruangan: "R.203", meja: 2 },
+            { nama: "ALDEN PIERO ONGGOWARSITO", sekolah: "SMP BINA BANGSA SCHOOL MALANG", ruangan: "R.203", meja: 3 },
+            { nama: "ALVIN SUNJOYO", sekolah: "SMPK WIDYATAMA BATU", ruangan: "R.203", meja: 4 },
+            { nama: "ANGELA KRISTANTO", sekolah: "SMP KATOLIK MARIA FATIMA JEMBER", ruangan: "R.203", meja: 5 },
+            { nama: "AUSTIN KEI TJAHJOYO", sekolah: "SMP KATOLIK MARIA FATIMA JEMBER", ruangan: "R.203", meja: 6 },
+            { nama: "CEDRIC WILLIAM REEF", sekolah: "SMP KATOLIK SANTA MARIA KEDIRI", ruangan: "R.203", meja: 7 },
+            { nama: "CHRISTABELLE STACEY MARGRACIA KUSUMA", sekolah: "SMP KATOLIK SANTA MARIA 02 MALANG", ruangan: "R.203", meja: 8 },
+            { nama: "CINTA AUNDY PANJAITAN", sekolah: "SMPS PJ GLOBAL SCHOOL MALANG", ruangan: "R.203", meja: 9 },
+            { nama: "CLARINTA BENING ARRAHMI", sekolah: "MTSS KHADIJAH MALANG", ruangan: "R.203", meja: 10 },
+            { nama: "CLARISA JIVANTA AREYANNA UTOMO", sekolah: "SMP MUSLIM CENDEKIA", ruangan: "R.203", meja: 11 },
+            { nama: "DIONISIUS VANDY FAJAR P", sekolah: "SMP KATOLIK SANTA MARIA 01 MALANG", ruangan: "R.203", meja: 12 },
+            { nama: "DZAKI ASYRAF MUHAMMAD", sekolah: "SMP LUQMAN AL HAKIM SURABAYA", ruangan: "R.203", meja: 13 },
+            { nama: "ETHAN JUVE ONGGOWARSITO", sekolah: "SMP BINA BANGSA SCHOOL MALANG", ruangan: "R.203", meja: 14 },
+            { nama: "ETHAN MATTHEW SINGGIH", sekolah: "SMPK KOLESE SANTO YUSUP 1 MALANG", ruangan: "R.203", meja: 15 },
+            { nama: "FACHRI ALKHALIFI NUGROHO", sekolah: "SMP LUQMAN AL HAKIM SURABAYA", ruangan: "R.203", meja: 16 },
+            { nama: "FILDZA KHAIRA AQUINA", sekolah: "UPTD SPF SMP NEGERI 1 BONDOWOSO", ruangan: "R.203", meja: 17 },
+            { nama: "HELENA ALEXANDRA", sekolah: "SMP KATOLIK MARIA FATIMA JEMBER", ruangan: "R.203", meja: 18 },
+            { nama: "JAMES ORVILLE TANOJO", sekolah: "SMPK KOLESE SANTO YUSUP 1 MALANG", ruangan: "R.203", meja: 19 },
+            { nama: "JANET FELICIA BUDI WIJAYA", sekolah: "SMP KATOLIK SANTA MARIA 02 MALANG", ruangan: "R.203", meja: 20 },
+            { nama: "JAVFLOWER PETRICYA ELEANOR MULLER", sekolah: "SMP KATOLIK SANTA MARIA 01 MALANG", ruangan: "R.203", meja: 21 },
+            { nama: "JEHONATHAN AAREN JUSANTO", sekolah: "SMPK KOLESE SANTO YUSUP 2 MALANG", ruangan: "R.203", meja: 22 },
+            { nama: "JOEL IGNATIUS LIE", sekolah: "SMPK KOLESE SANTO YUSUP 2 MALANG", ruangan: "R.203", meja: 23 },
+            { nama: "KEENAN ALDEBARAN EZRA PAPUDI", sekolah: "SMP LABORATORIUM UM MALANG", ruangan: "R.203", meja: 24 },
+            { nama: "KEINDRA PUTRA DWINANDITO", sekolah: "SMPS PJ GLOBAL SCHOOL MALANG", ruangan: "R.203", meja: 25 },
+            { nama: "KENZIE WIJOYO PUTRA RAHARDJO", sekolah: "UPTD SPF SMP NEGERI 1 BONDOWOSO", ruangan: "R.203", meja: 26 },
+            { nama: "KHANZA AULIA YASMINE", sekolah: "MTSS KHADIJAH MALANG", ruangan: "R.203", meja: 27 },
+            { nama: "KHARISMA AMADEO BYANTARA", sekolah: "SMP KATOLIK SANTA MARIA 01 MALANG", ruangan: "R.204", meja: 28 },
+            { nama: "LEON CARLOS PANGESTU", sekolah: "SMPK KOLESE SANTO YUSUP 2 MALANG", ruangan: "R.204", meja: 29 },
+            { nama: "LUDWIG IVES PENTA RESDIANTO", sekolah: "SMP KATOLIK ST ALBERTUS DONOMULYO, MALANG", ruangan: "R.204", meja: 30 },
+            { nama: "MARCELINO SANTIAGO", sekolah: "SMP NEGERI 18 MALANG", ruangan: "R.204", meja: 31 },
+            { nama: "MARIA JOCELINE SUBIYANTO", sekolah: "SMP KATOLIK SANTA MARIA KEDIRI", ruangan: "R.204", meja: 32 },
+            { nama: "MARIA STELLA FORTUNATA SATRIATAMA", sekolah: "SMP KATOLIK SANTA MARIA KEDIRI", ruangan: "R.204", meja: 33 },
+            { nama: "MAYDIHAN AKMAL GHAZWANI AL QUDSY", sekolah: "MTSN 1 KOTA MALANG", ruangan: "R.204", meja: 34 },
+            { nama: "MINTARAGA HANGGAYUH DAYALINUWIH", sekolah: "SMP LABORATORIUM UM MALANG", ruangan: "R.204", meja: 35 },
+            { nama: "MIRZA SYIFA RIDWAN", sekolah: "SMP NEGERI 19 SURABAYA", ruangan: "R.204", meja: 36 },
+            { nama: "MUHAMMAD DANISH ARSA NARARYA", sekolah: "MTSN 1 KOTA MALANG", ruangan: "R.204", meja: 37 },
+            { nama: "MUTIARA AGATHA SITUMORANG", sekolah: "SMP NATIONAL LEADER SCHOOL MALANG", ruangan: "R.204", meja: 38 },
+            { nama: "NICHOLAS ANDREW SUGIANTO", sekolah: "SMP KATOLIK YOHANES GABRIEL BLITAR", ruangan: "R.204", meja: 39 },
+            { nama: "PRABU MUSTIKA AJI ARDIAN", sekolah: "SMP LABORATORIUM UM MALANG", ruangan: "R.204", meja: 40 },
+            { nama: "RAFA FAISAL HIKAM", sekolah: "SMP NEGERI 1 LUMAJANG", ruangan: "R.204", meja: 41 },
+            { nama: "RAPHAEL HANS SETYAWAN", sekolah: "SMP PILAR NUSANTARA TUBAN", ruangan: "R.204", meja: 42 },
+            { nama: "RAYMOND KOMBAITAN", sekolah: "SMP NATIONAL LEADER SCHOOL MALANG", ruangan: "R.204", meja: 43 },
+            { nama: "RHEA HAFSHAH PURNOMO", sekolah: "SMP NEGERI 16 MALANG", ruangan: "R.204", meja: 44 },
+            { nama: "RICHIE ANGELO LIU", sekolah: "SMP LUQMAN AL HAKIM SURABAYA", ruangan: "R.204", meja: 45 },
+            { nama: "RIYAN SURYA HERMAWAN", sekolah: "MTSS KHADIJAH MALANG", ruangan: "R.204", meja: 46 },
+            { nama: "SERGIO PUTRA PRAYOGO", sekolah: "SMP NATIONAL LEADER SCHOOL MALANG", ruangan: "R.204", meja: 47 },
+            { nama: "SHAKEELA SHIDQIA MUMTAZA", sekolah: "MTSN 1 KOTA MALANG", ruangan: "R.204", meja: 48 },
+            { nama: "THARA ATHALIE JUWANA", sekolah: "SMP KATOLIK SANTA MARIA 02 MALANG", ruangan: "R.204", meja: 49 },
+            { nama: "TISANY KEYLA RIZQI ARYANTI", sekolah: "SMP NEGERI 17 MALANG", ruangan: "R.204", meja: 50 },
+            { nama: "VENCEZKA VIODORE VABRIANO ARISANDY", sekolah: "SMP KRISTEN PELITA KASIH LAWANG", ruangan: "R.204", meja: 51 },
+            { nama: "WILLIAM OWEN WONGSO", sekolah: "SMPK KOLESE SANTO YUSUP 1 MALANG", ruangan: "R.204", meja: 52 }
+        ];
+
+        let currentRoomFilter = 'ALL';
+
+        function initCountdown() {
+            const targetDate = new Date("October 17, 2026 08:45:00").getTime();
+
+            function updateTimer() {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+
+                if (diff <= 0) {
+                    document.getElementById("countdown").innerText = "Hari-H Acara!";
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById("countdown").innerHTML = `
+                    <span class="text-amber-300 font-bold">${days}</span>d 
+                    <span class="text-amber-300 font-bold">${hours}</span>h 
+                    <span class="text-amber-300 font-bold">${minutes}</span>m 
+                    <span class="text-amber-300 font-bold">${seconds}</span>s
+                `;
+            }
+
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        function handleSearch(e) {
+            e.preventDefault();
+            const val = document.getElementById("nameInput").value.trim();
+            if (!val) return;
+            displayParticipant(val);
+        }
+
+        function displayParticipant(searchTerm) {
+            const term = searchTerm.toLowerCase();
+            const found = participantsData.find(p => p.nama.toLowerCase() === term) ||
+                          participantsData.find(p => p.nama.toLowerCase().includes(term));
+
+            const resContainer = document.getElementById("resultContainer");
+            const notFoundBox = document.getElementById("notFoundBox");
+
+            if (found) {
+                notFoundBox.classList.add("hidden");
+                document.getElementById("resName").innerText = found.nama;
+                document.getElementById("resSchool").querySelector("span").innerText = found.sekolah;
+                document.getElementById("resRoom").innerText = found.ruangan;
+                document.getElementById("resDesk").innerText = found.meja;
+
+                resContainer.classList.remove("hidden");
+                resContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                resContainer.classList.add("hidden");
+                notFoundBox.classList.remove("hidden");
+                notFoundBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function resetSearch() {
+            document.getElementById("nameInput").value = "";
+            document.getElementById("resultContainer").classList.add("hidden");
+            document.getElementById("notFoundBox").classList.add("hidden");
+            document.getElementById("nameInput").focus();
+        }
+
+        // Initialize on window load
+        window.onload = function() {
+            initCountdown();
+        };
+    </script>
+</body>
+</html>
